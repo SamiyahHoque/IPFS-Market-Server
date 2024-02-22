@@ -5,7 +5,7 @@ package orca;
 service Market{
     rpc queryOffers(QueryOffersRequest) returns (QueryOffersResponse) {} //ask server for everyone with the file ID
     rpc postOffer(PostOfferRequest) returns (PostOfferResponse) {} // response to tell the server that you have a certain file at a specific price
-    rpc listAllOffers (ListOffersRequest) returns (ListOFfersResponse) {} // command to list all offers (every single file)
+    rpc listAllOffers (ListOffersRequest) returns (ListOffersResponse) {} // command to list all offers (every single file)
 
     rpc queryBids(QueryBidsRequest) returns (QueryBidsResponse) {} // command to get all the bids associated with a specific file
     rpc postBid(PostBidRequest) returns (PostBidResponse) {} // command to create a bid for a file
@@ -31,7 +31,7 @@ message PostOfferResponse{ /*empty*/ }
 
 message ListOffersRequest{ /*empty*/ }
 
-message ListOFfersResponse{ repeated Boffer offers = 1;}
+message ListOffersResponse{ repeated Boffer offers = 1;}
 
 
 message QueryBidsRequest{ string CID = 1;}

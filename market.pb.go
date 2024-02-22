@@ -310,7 +310,7 @@ func (*ListOffersRequest) Descriptor() ([]byte, []int) {
 	return file_market_proto_rawDescGZIP(), []int{5}
 }
 
-type ListOFfersResponse struct {
+type ListOffersResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -318,8 +318,8 @@ type ListOFfersResponse struct {
 	Offers []*Boffer `protobuf:"bytes,1,rep,name=offers,proto3" json:"offers,omitempty"`
 }
 
-func (x *ListOFfersResponse) Reset() {
-	*x = ListOFfersResponse{}
+func (x *ListOffersResponse) Reset() {
+	*x = ListOffersResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_market_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -327,13 +327,13 @@ func (x *ListOFfersResponse) Reset() {
 	}
 }
 
-func (x *ListOFfersResponse) String() string {
+func (x *ListOffersResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListOFfersResponse) ProtoMessage() {}
+func (*ListOffersResponse) ProtoMessage() {}
 
-func (x *ListOFfersResponse) ProtoReflect() protoreflect.Message {
+func (x *ListOffersResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_market_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -345,12 +345,12 @@ func (x *ListOFfersResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListOFfersResponse.ProtoReflect.Descriptor instead.
-func (*ListOFfersResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListOffersResponse.ProtoReflect.Descriptor instead.
+func (*ListOffersResponse) Descriptor() ([]byte, []int) {
 	return file_market_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *ListOFfersResponse) GetOffers() []*Boffer {
+func (x *ListOffersResponse) GetOffers() []*Boffer {
 	if x != nil {
 		return x.Offers
 	}
@@ -643,7 +643,7 @@ var file_market_proto_rawDesc = []byte{
 	0x52, 0x05, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x22, 0x13, 0x0a, 0x11, 0x50, 0x6f, 0x73, 0x74, 0x4f,
 	0x66, 0x66, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x13, 0x0a, 0x11,
 	0x4c, 0x69, 0x73, 0x74, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x22, 0x3a, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x46, 0x66, 0x65, 0x72, 0x73, 0x52,
+	0x74, 0x22, 0x3a, 0x0a, 0x12, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x24, 0x0a, 0x06, 0x6f, 0x66, 0x66, 0x65, 0x72,
 	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x6f, 0x72, 0x63, 0x61, 0x2e, 0x42,
 	0x6f, 0x66, 0x66, 0x65, 0x72, 0x52, 0x06, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x22, 0x24, 0x0a,
@@ -674,7 +674,7 @@ var file_market_proto_rawDesc = []byte{
 	0x65, 0x22, 0x00, 0x12, 0x44, 0x0a, 0x0d, 0x6c, 0x69, 0x73, 0x74, 0x41, 0x6c, 0x6c, 0x4f, 0x66,
 	0x66, 0x65, 0x72, 0x73, 0x12, 0x17, 0x2e, 0x6f, 0x72, 0x63, 0x61, 0x2e, 0x4c, 0x69, 0x73, 0x74,
 	0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e,
-	0x6f, 0x72, 0x63, 0x61, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x46, 0x66, 0x65, 0x72, 0x73, 0x52,
+	0x6f, 0x72, 0x63, 0x61, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x4f, 0x66, 0x66, 0x65, 0x72, 0x73, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x3e, 0x0a, 0x09, 0x71, 0x75, 0x65,
 	0x72, 0x79, 0x42, 0x69, 0x64, 0x73, 0x12, 0x16, 0x2e, 0x6f, 0x72, 0x63, 0x61, 0x2e, 0x51, 0x75,
 	0x65, 0x72, 0x79, 0x42, 0x69, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17,
@@ -710,7 +710,7 @@ var file_market_proto_goTypes = []interface{}{
 	(*PostOfferRequest)(nil),    // 3: orca.PostOfferRequest
 	(*PostOfferResponse)(nil),   // 4: orca.PostOfferResponse
 	(*ListOffersRequest)(nil),   // 5: orca.ListOffersRequest
-	(*ListOFfersResponse)(nil),  // 6: orca.ListOFfersResponse
+	(*ListOffersResponse)(nil),  // 6: orca.ListOffersResponse
 	(*QueryBidsRequest)(nil),    // 7: orca.QueryBidsRequest
 	(*QueryBidsResponse)(nil),   // 8: orca.QueryBidsResponse
 	(*PostBidRequest)(nil),      // 9: orca.PostBidRequest
@@ -721,7 +721,7 @@ var file_market_proto_goTypes = []interface{}{
 var file_market_proto_depIdxs = []int32{
 	0,  // 0: orca.QueryOffersResponse.offers:type_name -> orca.Boffer
 	0,  // 1: orca.PostOfferRequest.offer:type_name -> orca.Boffer
-	0,  // 2: orca.ListOFfersResponse.offers:type_name -> orca.Boffer
+	0,  // 2: orca.ListOffersResponse.offers:type_name -> orca.Boffer
 	0,  // 3: orca.QueryBidsResponse.offers:type_name -> orca.Boffer
 	0,  // 4: orca.PostBidRequest.offer:type_name -> orca.Boffer
 	0,  // 5: orca.ListBidResponse.offers:type_name -> orca.Boffer
@@ -733,7 +733,7 @@ var file_market_proto_depIdxs = []int32{
 	11, // 11: orca.Market.listBids:input_type -> orca.ListBidRequest
 	2,  // 12: orca.Market.queryOffers:output_type -> orca.QueryOffersResponse
 	4,  // 13: orca.Market.postOffer:output_type -> orca.PostOfferResponse
-	6,  // 14: orca.Market.listAllOffers:output_type -> orca.ListOFfersResponse
+	6,  // 14: orca.Market.listAllOffers:output_type -> orca.ListOffersResponse
 	8,  // 15: orca.Market.queryBids:output_type -> orca.QueryBidsResponse
 	10, // 16: orca.Market.postBid:output_type -> orca.PostBidResponse
 	12, // 17: orca.Market.listBids:output_type -> orca.ListBidResponse
@@ -823,7 +823,7 @@ func file_market_proto_init() {
 			}
 		}
 		file_market_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListOFfersResponse); i {
+			switch v := v.(*ListOffersResponse); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type MarketClient interface {
 	QueryOffers(ctx context.Context, in *QueryOffersRequest, opts ...grpc.CallOption) (*QueryOffersResponse, error)
 	PostOffer(ctx context.Context, in *PostOfferRequest, opts ...grpc.CallOption) (*PostOfferResponse, error)
-	ListAllOffers(ctx context.Context, in *ListOffersRequest, opts ...grpc.CallOption) (*ListOFfersResponse, error)
+	ListAllOffers(ctx context.Context, in *ListOffersRequest, opts ...grpc.CallOption) (*ListOffersResponse, error)
 	QueryBids(ctx context.Context, in *QueryBidsRequest, opts ...grpc.CallOption) (*QueryBidsResponse, error)
 	PostBid(ctx context.Context, in *PostBidRequest, opts ...grpc.CallOption) (*PostBidResponse, error)
 	ListBids(ctx context.Context, in *ListBidRequest, opts ...grpc.CallOption) (*ListBidResponse, error)
@@ -56,8 +56,8 @@ func (c *marketClient) PostOffer(ctx context.Context, in *PostOfferRequest, opts
 	return out, nil
 }
 
-func (c *marketClient) ListAllOffers(ctx context.Context, in *ListOffersRequest, opts ...grpc.CallOption) (*ListOFfersResponse, error) {
-	out := new(ListOFfersResponse)
+func (c *marketClient) ListAllOffers(ctx context.Context, in *ListOffersRequest, opts ...grpc.CallOption) (*ListOffersResponse, error) {
+	out := new(ListOffersResponse)
 	err := c.cc.Invoke(ctx, "/orca.Market/listAllOffers", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (c *marketClient) ListBids(ctx context.Context, in *ListBidRequest, opts ..
 type MarketServer interface {
 	QueryOffers(context.Context, *QueryOffersRequest) (*QueryOffersResponse, error)
 	PostOffer(context.Context, *PostOfferRequest) (*PostOfferResponse, error)
-	ListAllOffers(context.Context, *ListOffersRequest) (*ListOFfersResponse, error)
+	ListAllOffers(context.Context, *ListOffersRequest) (*ListOffersResponse, error)
 	QueryBids(context.Context, *QueryBidsRequest) (*QueryBidsResponse, error)
 	PostBid(context.Context, *PostBidRequest) (*PostBidResponse, error)
 	ListBids(context.Context, *ListBidRequest) (*ListBidResponse, error)
@@ -115,7 +115,7 @@ func (UnimplementedMarketServer) QueryOffers(context.Context, *QueryOffersReques
 func (UnimplementedMarketServer) PostOffer(context.Context, *PostOfferRequest) (*PostOfferResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostOffer not implemented")
 }
-func (UnimplementedMarketServer) ListAllOffers(context.Context, *ListOffersRequest) (*ListOFfersResponse, error) {
+func (UnimplementedMarketServer) ListAllOffers(context.Context, *ListOffersRequest) (*ListOffersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAllOffers not implemented")
 }
 func (UnimplementedMarketServer) QueryBids(context.Context, *QueryBidsRequest) (*QueryBidsResponse, error) {

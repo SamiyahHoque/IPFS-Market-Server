@@ -1,0 +1,47 @@
+syntax = "proto3";
+option go_package = "./";
+package orca;
+
+service Market{
+    rpc queryOffers(QueryOffersRequest) returns (QueryOffersResponse) {} //ask server for everyone with the file ID
+    rpc postOffer(PostOfferRequest) returns (PostOfferResponse) {} // response to tell the server that you have a certain file at a specific price
+    rpc listAllOffers (ListOffersRequest) returns (ListOFfersResponse) {} // command to list all offers (every single file)
+
+    rpc queryBids(QueryBidsRequest) returns (QueryBidsResponse) {} // command to get all the bids associated with a specific file
+    rpc postBid(PostBidRequest) returns (PostBidResponse) {} // command to create a bid for a file
+    rpc listBids (ListBidRequest) returns (ListBidResponse) {}// command to list all bids
+    
+}
+
+message Boffer{ // struct that gives all details of a file whether it is a bid or an offer
+    string CID = 1;
+    string IP = 2;
+    int32 Port = 3;
+    int32 Price = 4;
+}
+
+ // request a specific file with a CID
+message QueryOffersRequest{ string CID = 1;}
+// return an array of Offer structs of the file requested
+message QueryOffersResponse{ repeated Boffer offers = 1;}
+
+message PostOfferRequest{ Boffer offer = 1;}
+
+message PostOfferResponse{ /*empty*/ }
+
+message ListOffersRequest{ /*empty*/ }
+
+message ListOFfersResponse{ repeated Boffer offers = 1;}
+
+
+message QueryBidsRequest{ string CID = 1;}
+message QueryBidsResponse{ repeated Boffer offers = 1;}
+message PostBidRequest{ Boffer offer = 1;}
+message PostBidResponse{ /*empty*/ }
+message ListBidRequest{ /*empty*/ }
+message ListBidResponse{ repeated Boffer offers = 1;}
+
+
+
+
+

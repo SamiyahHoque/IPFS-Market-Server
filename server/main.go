@@ -5,17 +5,17 @@ import (
 	"log"
 	"net"
 
-	pb "example.com/fileserverproject"
+	pb "marketServer"
 	"google.golang.org/grpc"
 )
 
 // Adjust the import path
 type server struct {
-	pb.UnimplementedFileServer
+	pb.UnimplementedMarketServer
 }
 
 // the (s *server) binds the functino to the server
-func (s *server) SayHello (ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *server) SayHello (ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, er	ror) {
 	log.Printf("Received %v", in.GetName())
 	return &pb.HelloReply{Message: "Hello" + in.GetName()}, nil
 }
@@ -27,7 +27,8 @@ func main(){
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterFileServer(s, &server{})
+	pb.RegisterMarketServer(s, &server{})
+
 	log.Printf("Server Listening at %v", lis.Addr())
 
 	if err := s.Serve(lis); err != nil {

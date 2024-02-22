@@ -7,7 +7,7 @@ import(
 	"time"
 
 	"google.golang.org/grpc"
-	pb "example.com/fileserverproject" 
+	pb "marketServer" 
 	"google.golang.org/grpc/credentials/insecure"
 )
 
@@ -15,13 +15,13 @@ func main() {
 	address := "localhost:50051"
 	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
-	if err != nil {
+	if err != nil {		
 		log.Fatalf("Failed to connect %v", err)
 	}
 
 	defer conn.Close()
-	c := pb.NewFileClient(conn)
 
+	client := pb.NewMarketClient(conn)
 	name := "world"
 
 	//allows you to change name in program args
@@ -32,7 +32,8 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	//call server method
+	r, err := client.SayHello(ctx, &pb.HelloRequest{Name: name})
 	if err != nil {
 		log.Fatalf("Could not say hello :( %v", err)
 	}

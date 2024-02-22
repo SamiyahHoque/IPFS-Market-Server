@@ -1,4 +1,4 @@
-module example.com/fileserverproject
+module marketServer
 
 go 1.22.0
 

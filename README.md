@@ -9,7 +9,7 @@
 
 Run the following command to compile the proto file:
 ```
-protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative file.proto
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative market.proto
 ```
 
 If protoc isn't being detected as a command, run it in cmd.

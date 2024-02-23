@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"log"
 	"net"
 
@@ -11,14 +10,14 @@ import (
 
 // Adjust the import path
 type server struct {
-	pb.UnimplementedMarketServer
+	// pb.UnimplementedMarketServer
 }
 
 // the (s *server) binds the functino to the server
-func (s *server) SayHello (ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, er	ror) {
-	log.Printf("Received %v", in.GetName())
-	return &pb.HelloReply{Message: "Hello" + in.GetName()}, nil
-}
+// func (s *server) SayHello (ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+// 	log.Printf("Received %v", in.GetName())
+// 	return &pb.HelloReply{Message: "Hello" + in.GetName()}, nil
+// }
 
 func main(){
 	lis, err := net.Listen("tcp", ":50051")

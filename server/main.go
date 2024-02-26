@@ -54,7 +54,6 @@ func (s *server) ListAllOffers (ctx context.Context, in *pb.ListOffersRequest) (
 	// slice of pointers of type Boffer. we will store ALL offers here
 	var allOffers []*pb.Boffer
 
-	log.Printf("Hi!")
 	// go into every single CID in offerTable map, in which each CID is linked to a slice of boffers
 	for CID := range offerTable {
 

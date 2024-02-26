@@ -79,7 +79,7 @@ func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
 		I just copied the format of queryOffers(). Still need to test if it works
 	*/
 
-	cid := in.GetCID()
+	cid := in.CID
 
     boffers, exists := bidTable[cid]
 	if !exists || len(boffers) == 0{
@@ -104,13 +104,17 @@ func (s *server) postBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostB
 		the bidTable in a more formal manner (similar to CSE 320 hw 4/5 - process or thread based multitasking)
 	*/
 
-	addedBoffer := in.GetOffer()
+	addedBoffer := in.Offer
 
-	boffers := bidTable[addedBoffer.GetCID()]
+	boffers, exists := bidTable[addedBoffer.CID]
+	if !exists || len(boffers) == 0{
+        return &pb.PostBidResponse{}, nil
+    }
+
     boffers = append(boffers, boffer{
-        IP:    addedBoffer.GetIP(),
-        Port:  addedBoffer.GetPort(),
-        Price: addedBoffer.GetPrice(),
+        IP:    addedBoffer.IP,
+        Port:  addedBoffer.Port,
+        Price: addedBoffer.Price,
     })
 
     bidTable[addedBoffer.GetCID()] = boffers

@@ -35,10 +35,44 @@ func (s *server) queryOffers (ctx context.Context, in *pb.QueryOffersRequest) (*
     return &pb.QueryOffersResponse{Offers: offers}, nil
 }
 func (s *server) postOffer (ctx context.Context, in *pb.PostOfferRequest) (*pb.PostOfferResponse, error) {
+
+	// get all properties from the parameters the user passed
+	addedBoffer := in.GetOffer()
+
+	// add it to the appropiate CID slice
+	boffers := offerTable[addedBoffer.GetCID()] 
+	boffers = append(boffers, boffer {
+		IP:    addedBoffer.IP,
+		Port:  addedBoffer.Port,
+		Price: addedBoffer.Price,
+	})
+
 	return &pb.PostOfferResponse{}, nil
 }
 func (s *server) listAllOffers (ctx context.Context, in *pb.ListOffersRequest) (*pb.ListOffersResponse, error) {
-	return &pb.ListOffersResponse{}, nil
+
+	// slice of pointers of type Boffer. we will store ALL offers here
+	var allOffers []*pb.Boffer
+
+	// go into every single CID in offerTable map, in which each CID is linked to a slice of boffers
+	for CID := range offerTable {
+
+		for _, boffer := range offerTable[CID] {
+
+			// create a new boffer element with all properties from the boffer we are looking at
+			// after that, add to the allOffers array
+			allOffers = append(allOffers, &pb.Boffer {
+				IP: boffer.IP,
+				Port: boffer.Port,
+				Price: boffer.Price,
+			})
+
+		}
+
+	}
+
+	return &pb.ListOffersResponse{Offers: allOffers}, nil
+
 }
 func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.QueryBidsResponse, error) {
 	return &pb.QueryBidsResponse{}, nil

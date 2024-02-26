@@ -53,7 +53,6 @@ func (s *server) ListAllOffers (ctx context.Context, in *pb.ListOffersRequest) (
 	// slice of pointers of type Boffer. we will store ALL offers here
 	var allOffers []*pb.Boffer
 
-	log.Printf("Hi!")
 	// go into every single CID in offerTable map, in which each CID is linked to a slice of boffers
 	for CID := range offerTable {
 
@@ -86,16 +85,16 @@ func (s *server) QueryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
         return &pb.QueryBidsResponse{}, nil
     }
 
-	var offers []*pb.Boffer
+	var bids []*pb.Boffer
     for _, boffer := range boffers {
-		offers = append(offers, &pb.Boffer{
+		bids = append(bids, &pb.Boffer{
             IP:    boffer.IP,
             Port:  boffer.Port,
             Price: boffer.Price,
         })
 	}
 
-    return &pb.QueryBidsResponse{Offers: offers}, nil
+    return &pb.QueryBidsResponse{Bids: bids}, nil
 }
 
 func (s *server) PostBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
@@ -104,7 +103,7 @@ func (s *server) PostBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostB
 		the bidTable in a more formal manner (similar to CSE 320 hw 4/5 - process or thread based multitasking)
 	*/
 
-	addedBoffer := in.Offer
+	addedBoffer := in.Bid
 
 	boffers, exists := bidTable[addedBoffer.CID]
 	if !exists || len(boffers) == 0{
@@ -135,7 +134,7 @@ func (s *server) ListBids(ctx context.Context, in *pb.ListBidRequest) (*pb.ListB
         }
     }
 
-    return &pb.ListBidResponse{Offers: allBids}, nil
+    return &pb.ListBidResponse{Bids: allBids}, nil
 }
 
 

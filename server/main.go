@@ -15,7 +15,7 @@ type server struct {
 }
 
 // the (s *server) binds the function to the server
-func (s *server) queryOffers (ctx context.Context, in *pb.QueryOffersRequest) (*pb.QueryOffersResponse, error) {
+func (s *server) QueryOffers (ctx context.Context, in *pb.QueryOffersRequest) (*pb.QueryOffersResponse, error) {
 	cid := in.GetCID()
 
     boffers, exists := offerTable[cid]
@@ -34,7 +34,7 @@ func (s *server) queryOffers (ctx context.Context, in *pb.QueryOffersRequest) (*
 
     return &pb.QueryOffersResponse{Offers: offers}, nil
 }
-func (s *server) postOffer (ctx context.Context, in *pb.PostOfferRequest) (*pb.PostOfferResponse, error) {
+func (s *server) PostOffer (ctx context.Context, in *pb.PostOfferRequest) (*pb.PostOfferResponse, error) {
 
 	// get all properties from the parameters the user passed
 	addedBoffer := in.GetOffer()
@@ -49,11 +49,12 @@ func (s *server) postOffer (ctx context.Context, in *pb.PostOfferRequest) (*pb.P
 
 	return &pb.PostOfferResponse{}, nil
 }
-func (s *server) listAllOffers (ctx context.Context, in *pb.ListOffersRequest) (*pb.ListOffersResponse, error) {
+func (s *server) ListAllOffers (ctx context.Context, in *pb.ListOffersRequest) (*pb.ListOffersResponse, error) {
 
 	// slice of pointers of type Boffer. we will store ALL offers here
 	var allOffers []*pb.Boffer
 
+	log.Printf("Hi!")
 	// go into every single CID in offerTable map, in which each CID is linked to a slice of boffers
 	for CID := range offerTable {
 
@@ -74,7 +75,7 @@ func (s *server) listAllOffers (ctx context.Context, in *pb.ListOffersRequest) (
 	return &pb.ListOffersResponse{Offers: allOffers}, nil
 
 }
-func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.QueryBidsResponse, error) {
+func (s *server) QueryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.QueryBidsResponse, error) {
 	/* To work on:
 		I just copied the format of queryOffers(). Still need to test if it works
 	*/
@@ -98,7 +99,7 @@ func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
     return &pb.QueryBidsResponse{Offers: offers}, nil
 }
 
-func (s *server) postBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
+func (s *server) PostBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
 	/* To work on:
 		Because its a server and we may be getting simultaneous requests from clients, we should handle updates to
 		the bidTable in a more formal manner (similar to CSE 320 hw 4/5 - process or thread based multitasking)
@@ -122,7 +123,7 @@ func (s *server) postBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostB
     return &pb.PostBidResponse{}, nil
 }
 
-func (s *server) listBids(ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
+func (s *server) ListBids(ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
     var allBids []*pb.Boffer
 
     for _, bids := range bidTable {
@@ -184,8 +185,6 @@ func main(){
 	}
 	
 }
-
-
 
 func clearAndFillDummyData(){
 	for key := range offerTable{

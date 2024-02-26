@@ -78,8 +78,20 @@ func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
 	return &pb.QueryBidsResponse{}, nil
 }
 func (s *server) postBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
-	return &pb.PostBidResponse{}, nil
+	addedBoffer := in.GetOffer()
+
+	boffers := bidTable[addedBoffer.GetCID()]
+    boffers = append(boffers, boffer{
+        IP:    addedBoffer.GetIP(),
+        Port:  addedBoffer.GetPort(),
+        Price: addedBoffer.GetPrice(),
+    })
+
+    bidTable[addedBoffer.GetCID()] = boffers
+
+    return &pb.PostBidResponse{}, nil
 }
+
 func (s *server) listBids (ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
 	return &pb.ListBidResponse{}, nil
 }

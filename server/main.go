@@ -80,9 +80,25 @@ func (s *server) queryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
 func (s *server) postBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
 	return &pb.PostBidResponse{}, nil
 }
-func (s *server) listBids (ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
-	return &pb.ListBidResponse{}, nil
+
+
+
+func (s *server) listBids(ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
+    var allBids []*pb.Boffer
+
+    for _, bids := range bidTable {
+        for _, bid := range bids {
+            allBids = append(allBids, &pb.Boffer{
+                IP:    bid.IP,
+                Port:  bid.Port,
+                Price: bid.Price,
+            })
+        }
+    }
+
+    return &pb.ListBidResponse{Offers: allBids}, nil
 }
+
 
 
 type boffer struct{
@@ -96,7 +112,24 @@ var bidTable = make(map[string][]boffer)
 
 func main(){
 	clearAndFillDummyData()
-	
+	fillDummyBidData()
+
+	//print data 
+	log.Println("Offers:")
+    for cid, offers := range offerTable {
+        log.Printf("CID: %s, Total Offers: %d", cid, len(offers))
+        for i, offer := range offers {
+            log.Printf("\tOffer %d: IP: %s, Port: %d, Price: %d", i+1, offer.IP, offer.Port, offer.Price)
+        }
+    }
+    log.Println("Bids:")
+    for cid, bids := range bidTable {
+        log.Printf("CID: %s, Total Bids: %d", cid, len(bids))
+        for i, bid := range bids {
+            log.Printf("\tBid %d: IP: %s, Port: %d, Price: %d", i+1, bid.IP, bid.Port, bid.Price)
+        }
+    }
+
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("failed to set up listening port: %v", err)
@@ -112,6 +145,8 @@ func main(){
 	}
 	
 }
+
+
 
 func clearAndFillDummyData(){
 	for key := range offerTable{
@@ -142,4 +177,36 @@ func clearAndFillDummyData(){
 		{"192.168.100.100", 80, 35},
 		{"10.10.10.10", 22, 45},
 	}
+}
+
+
+func fillDummyBidData() {
+    for key := range bidTable {
+        delete(bidTable, key)
+    }
+    bidTable["123"] = []boffer{
+        {"192.168.1.100", 8080, 95},
+        {"10.10.10.10", 3030, 115},
+        {"192.168.2.200", 9090, 105},
+    }
+    bidTable["abc"] = []boffer{
+        {"10.0.0.2", 80, 35},
+        {"192.168.100.101", 3000, 45},
+        {"172.16.0.2", 7070, 55},
+    }
+    bidTable["f1e4c2"] = []boffer{
+        {"10.20.30.40", 8080, 200},
+        {"192.168.1.1", 8080, 210},
+        {"172.16.0.1", 443, 190},
+        {"10.30.40.50", 4040, 185},
+    }
+    bidTable["456def"] = []boffer{
+        {"192.168.3.3", 3030, 120},
+        {"10.0.2.2", 2020, 130},
+    }
+    bidTable["789ghi"] = []boffer{
+        {"192.168.4.4", 4040, 140},
+        {"10.0.3.3", 3030, 150},
+        {"172.16.1.1", 5050, 160},
+    }
 }

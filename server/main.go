@@ -94,24 +94,33 @@ type boffer struct{
 var offerTable = make(map[string][]boffer)
 var bidTable = make(map[string][]boffer)
 
-func main(){
-	clearAndFillDummyData()
-	
-	lis, err := net.Listen("tcp", ":50051")
-	if err != nil {
-		log.Fatalf("failed to set up listening port: %v", err)
-	}
+func main() {
+    clearAndFillDummyData()
 
-	s := grpc.NewServer()
-	pb.RegisterMarketServer(s, &server{})
+    //test dummy data print data
+    for cid, offers := range offerTable {
+        log.Printf("CID: %s, Total Offers: %d\n", cid, len(offers))
+        for i, offer := range offers {
+            log.Printf("\tOffer %d: IP: %s, Port: %d, Price: %d\n", i+1, offer.IP, offer.Port, offer.Price)
+        }
+        log.Println("\t---") 
+    }
 
-	log.Printf("Server Listening at %v", lis.Addr())
+    lis, err := net.Listen("tcp", ":50051")
+    if err != nil {
+        log.Fatalf("failed to set up listening port: %v", err)
+    }
 
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
-	}
-	
+    s := grpc.NewServer()
+    pb.RegisterMarketServer(s, &server{})
+
+    log.Printf("Server Listening at %v", lis.Addr())
+
+    if err := s.Serve(lis); err != nil {
+        log.Fatalf("Failed to serve: %v", err)
+    }
 }
+
 
 func clearAndFillDummyData(){
 	for key := range offerTable{

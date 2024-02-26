@@ -40,11 +40,10 @@ func (s *server) PostOffer (ctx context.Context, in *pb.PostOfferRequest) (*pb.P
 	addedBoffer := in.GetOffer()
 
 	// add it to the appropiate CID slice
-	boffers := offerTable[addedBoffer.GetCID()] 
-	boffers = append(boffers, boffer {
-		IP:    addedBoffer.IP,
-		Port:  addedBoffer.Port,
-		Price: addedBoffer.Price,
+	offerTable[addedBoffer.GetCID()] = append(offerTable[addedBoffer.GetCID()] , boffer {
+		IP:    addedBoffer.GetIP(),
+		Port:  addedBoffer.GetPort(),
+		Price: addedBoffer.GetPrice(),
 	})
 
 	return &pb.PostOfferResponse{}, nil

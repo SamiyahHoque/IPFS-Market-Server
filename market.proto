@@ -35,11 +35,11 @@ message ListOffersResponse{ repeated Boffer offers = 1;}
 
 
 message QueryBidsRequest{ string CID = 1;}
-message QueryBidsResponse{ repeated Boffer offers = 1;}
-message PostBidRequest{ Boffer offer = 1;}
+message QueryBidsResponse{ repeated Boffer bids = 1;}
+message PostBidRequest{ Boffer bid = 1;}
 message PostBidResponse{ /*empty*/ }
 message ListBidRequest{ /*empty*/ }
-message ListBidResponse{ repeated Boffer offers = 1;}
+message ListBidResponse{ repeated Boffer bids = 1;}
 
 
 

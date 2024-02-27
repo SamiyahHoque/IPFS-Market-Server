@@ -74,10 +74,6 @@ func (s *server) ListAllOffers (ctx context.Context, in *pb.ListOffersRequest) (
 
 }
 func (s *server) QueryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.QueryBidsResponse, error) {
-	/* To work on:
-		I just copied the format of queryOffers(). Still need to test if it works
-	*/
-
 	cid := in.CID
 
     boffers, exists := bidTable[cid]
@@ -99,26 +95,19 @@ func (s *server) QueryBids (ctx context.Context, in *pb.QueryBidsRequest) (*pb.Q
 
 func (s *server) PostBid (ctx context.Context, in *pb.PostBidRequest) (*pb.PostBidResponse, error) {
 	/* To work on:
-		Because its a server and we may be getting simultaneous requests from clients, we should handle updates to
-		the bidTable in a more formal manner (similar to CSE 320 hw 4/5 - process or thread based multitasking)
+		Because we may be getting simultaneous requests from clients, we should handle updates to
+		the bidTable in a more formal manner (thread based?)
 	*/
 
-	addedBoffer := in.Bid
+	addedBoffer := in.GetBid()
 
-	boffers, exists := bidTable[addedBoffer.CID]
-	if !exists || len(boffers) == 0{
-        return &pb.PostBidResponse{}, nil
-    }
+	bidTable[addedBoffer.GetCID()] = append(bidTable[addedBoffer.GetCID()] , boffer {
+		IP:    addedBoffer.GetIP(),
+		Port:  addedBoffer.GetPort(),
+		Price: addedBoffer.GetPrice(),
+	})
 
-    boffers = append(boffers, boffer{
-        IP:    addedBoffer.IP,
-        Port:  addedBoffer.Port,
-        Price: addedBoffer.Price,
-    })
-
-    bidTable[addedBoffer.GetCID()] = boffers
-
-    return &pb.PostBidResponse{}, nil
+	return &pb.PostBidResponse{}, nil
 }
 
 func (s *server) ListBids(ctx context.Context, in *pb.ListBidRequest) (*pb.ListBidResponse, error) {
